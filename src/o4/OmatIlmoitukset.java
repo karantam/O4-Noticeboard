@@ -115,6 +115,8 @@ public class OmatIlmoitukset implements ItemListener{
 
 	
 	public OmatIlmoitukset(String kayttaja) {
+		button_1.setEnabled(false);
+		button_2.setEnabled(false);
 		
 		List<Message> ilmoitukset = null;
 		try {
@@ -159,6 +161,10 @@ public class OmatIlmoitukset implements ItemListener{
 		String hinta = String.valueOf(valittuIlmoitus.getPrice());
 		String kuvaus = valittuIlmoitus.getMessage();
 		//vastaus[] ilmoituksen_vastaukset = valittuIlmoitus.getVastaukset();
+		if (!valittuIlmoitus.getName().isBlank()) {
+			button_1.setEnabled(true);
+			button_2.setEnabled(true);
+		}
 		
 		List<Answer> vastaukset = null;
 		try {

@@ -253,7 +253,7 @@ public class Rekisteroityminen implements ActionListener {
 	public String checkUserName(String userName) {
 		String problem = null;
 		//3-20 merkkiä
-		if(userName.length() > 20 | userName.length() < 3) 
+		if(userName.isBlank() || userName.length() > 20 || userName.length() < 3) 
 			{return problem = "Käyttäjänimen on oltava vähintään 3 merkkiä ja enintään 20 merkkiä pitkä.";}
 		//Kaikki ok
 		else{return problem;}
@@ -281,7 +281,7 @@ public class Rekisteroityminen implements ActionListener {
 	public String checkPassword(String password) {
 		String problem = null;
 		//6-18 merkkiä
-		if(password.length() > 18 | password.length() < 6) 
+		if(password.length() > 18 || password.length() < 6) 
 			{return problem = "Salasanan on oltava vähintään 6 merkkiä ja enintään 18 merkkiä pitkä.";}
 		//Kaikki ok
 		else {return problem;}

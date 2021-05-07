@@ -124,7 +124,7 @@ public class CreateMessage extends JFrame{
             	double hintaluku;
             	try {
             		hintaluku = Double.parseDouble(hinta);
-            		if (nimi.length() > 3 && sijainti.length() > 2 && hintaluku > 0 && kuvaus.length() > 5) {
+            		if (!nimi.isBlank() && nimi.length() > 3 && sijainti.length() > 2 && hintaluku > 0 && kuvaus.length() > 5) {
             			Message ilmoitus = new Message(lahettaja, nimi, sijainti, hintaluku, kuvaus);
             			boolean value = false;
             			boolean value2 = false;
