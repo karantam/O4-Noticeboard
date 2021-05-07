@@ -177,15 +177,15 @@ public class MessageDatabase {
      */
     public boolean editMessage(Message message, String oldName) throws SQLException {
         String editMessageString;
-        int messageId = getId(message.getName());
+        int messageId = getId(oldName);
         // Editing a message 
         editMessageString = "UPDATE message SET username = '" + message.getUser().replace("'", "''") + "', messagename = '"
         		+ message.getName().replace("'", "''") + "', location = '" + message.getLocation().replace("'", "''") 
-        		+ message.getPrice() + "', message = '" + message.getMessage().replace("'", "''") + "' WHERE id = '" + messageId + "'";
+        		+ "', price = '" + message.getPrice() + "', message = '" + message.getMessage().replace("'", "''") + "' WHERE id = '" + messageId + "'";
         
         try (Statement createStatement = dbConnection.createStatement()) {
             createStatement.executeUpdate(editMessageString);
-            editAnswers(message.getName(), oldName);
+            editAnswers(oldName, message.getName());
         } catch (SQLException e) {
             System.out.println("ERROR: SQLException while editing a message in the database");
             return false;
@@ -246,6 +246,40 @@ public class MessageDatabase {
 
     }
 
+    /*
+     * getUsersMessages method retrieves all messages sent by the given user from the database.
+     */
+    public List<Message> getUsersMessages(String user) throws SQLException {
+        ArrayList<Message> messages = new ArrayList<>();
+        // Getting all the messages
+        String getMessagesString;
+        // Handling the case where there is no channel and no time
+        getMessagesString = "select username, messagename, location, price, message from message WHERE username ='" + user.replace("'", "''") + "' order by LOWER(messagename) ASC";
+        String username = null;
+        String messagename = null;
+        String location = null;
+        double price = 0;
+        String messagetext = null;
+        try (Statement queryStatement = dbConnection.createStatement()) {
+            ResultSet rs = queryStatement.executeQuery(getMessagesString);
+
+            while (rs.next()) {
+                username = rs.getString("username");
+                messagename =  rs.getString("messagename");
+                location = rs.getString("location");
+                price = rs.getDouble("price");
+                messagetext = rs.getString("message");
+                Message message = new Message(username, messagename, location, price, messagetext);
+                messages.add(message);
+            }
+
+        } catch (SQLException e) {
+        	System.out.println("ERROR: SQLException while reading messages from database");
+        }
+        return messages;
+
+    }
+    
     /*
      * getMessage method retrieves the message with messagename target from the database
      */

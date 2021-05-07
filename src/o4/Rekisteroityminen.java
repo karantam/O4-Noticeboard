@@ -228,6 +228,9 @@ public class Rekisteroityminen implements ActionListener {
 					}
 				} else {
 					JOptionPane.showMessageDialog(frame, "Käyttäjänimi tai salasana ei kelpaa", "Virhe" , JOptionPane.WARNING_MESSAGE);
+					textfield_1.setText("");
+					textfield_3.setText("");
+					textfield_4.setText("");
 				}
 				/*if(palataan == "AnswerMessage") {
 					//Palataan vastaamisikkunaan

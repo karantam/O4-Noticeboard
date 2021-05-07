@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -122,7 +123,7 @@ public class MainWindow extends JFrame{
         
         ohje = new JLabel("Avaa ilmoitus klikaamalla sitä");
         
-        kayttaja =  new JLabel("WWWWWWWWWWWWWWWWWWWW");
+        kayttaja =  new JLabel("WWWWWWWWWWWWWWWWWWWWWW", SwingConstants.CENTER);
         kayttaja.setMinimumSize(kayttaja.getPreferredSize());
         kayttaja.setPreferredSize(kayttaja.getPreferredSize());
         kayttaja.setMaximumSize(omat.getPreferredSize());
@@ -342,6 +343,13 @@ public class MainWindow extends JFrame{
             }
         });
         
+     // Ilmoitus nappi avaa jätä ilmoitus ikkunan
+        omat.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e){
+        		OmatIlmoitukset jata = new OmatIlmoitukset(kayttaja.getText());
+            }
+        });
+        
         // Näyttää listasta valitun ilmoituksen omassa ikkunassaan
         lista.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -406,6 +414,7 @@ public class MainWindow extends JFrame{
         kayttajasisus.add(Box.createHorizontalGlue());
         kayttajasisus.add(Box.createHorizontalGlue());
         kayttajasisus.add(kayttaja);
+        kayttaja.setAlignmentX(CENTER_ALIGNMENT);
         kayttajasisus.add(Box.createRigidArea(new Dimension(20,1)));
         kayttajasisus.add(kirjaudu);
         kayttajasisus.add(Box.createRigidArea(new Dimension(14,59)));

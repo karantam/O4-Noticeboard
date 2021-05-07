@@ -45,4 +45,9 @@ public class Message {
     public Message getChatMessage() {
         return new Message(user, name, location, price, message);
     }
+    
+    // Palauttaa tuotteen nimen kun olio luetaan
+    public String toString() {
+    	return name;
+    	}
 }

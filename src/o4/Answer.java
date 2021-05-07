@@ -35,5 +35,10 @@ public class Answer {
     public Answer getAnswer() {
         return new Answer(messagename, user, answertext, contact);
     }
+    
+    // Palauttaa vastauksen jättäjän nimen kun olio luetaan
+    public String toString() {
+    	return user;
+    	}
 }
 

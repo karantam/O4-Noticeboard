@@ -42,7 +42,7 @@ public class EditMessage extends JFrame{
     private JFrame itse; //Talletuspaikka ikkunan viittaukselle itseens�
     
     
-    public EditMessage(String tuote, String lahettaja) {
+    public EditMessage(Message ilmoitus) {
  
         super("Muokkaa ilmoitusta");
         itse = this;    //asetetaan itseviite talteen kuuntelijaa varten.
@@ -127,6 +127,8 @@ public class EditMessage extends JFrame{
             public void actionPerformed(ActionEvent e){
             	//System.exit(0);
             	dispose();
+            	OmatIlmoitukset jata = new OmatIlmoitukset(ilmoitus.getUser());
+
             }
         });
         
@@ -140,25 +142,27 @@ public class EditMessage extends JFrame{
             	try {
             		hintaluku = Double.parseDouble(hinta);
             		if (nimi.length() > 3 && sijainti.length() > 2 && hintaluku > 0 && kuvaus.length() > 5) {
-            			Message ilmoitus = new Message(lahettaja, nimi, sijainti, hintaluku, kuvaus);
+            			//Message ilmoitus = new Message(lahettaja, nimi, sijainti, hintaluku, kuvaus);
             			boolean value = false;
             			boolean value2 = false;
             			//Tarkistetaan onko tuotteen nimi jo käytössä ellei se ole sama kuin vanha tuotteen nimi 
-            			if (nimi.equals(tuote)) {
+            			if (nimi.equals(ilmoitus.getName())) {
             				value = true;
             			} else {
-            				value = MessageDatabase.getInstance().checkMessage(ilmoitus.getName());
+            				value = MessageDatabase.getInstance().checkMessage(nimi);
             			}
             			if (value) {
-            				value2 = MessageDatabase.getInstance().editMessage(ilmoitus, tuote);
+            				Message ilmoitus_2 = new Message(ilmoitus.getUser(), nimi, sijainti, hintaluku, kuvaus);
+            				value2 = MessageDatabase.getInstance().editMessage(ilmoitus_2, ilmoitus.getName());
             				if (value2) {
             					JOptionPane.showMessageDialog(itse, "Muutokset tallennettu onnistuneesti.","Viesti" , JOptionPane.PLAIN_MESSAGE);
                 				dispose();
+                				OmatIlmoitukset jata = new OmatIlmoitukset(ilmoitus.getUser());
                 			} else {
                 				JOptionPane.showMessageDialog(itse, "Muutosten tallennus epäonnistui", "Virhe" , JOptionPane.ERROR_MESSAGE);
                 			}
             			} else {
-            				JOptionPane.showMessageDialog(itse, "Muutoksia ei voitu tallentaa, koska uusi tuotteen nimi on jo käytössä", "Virhe" , JOptionPane.WARNING_MESSAGE);
+            				JOptionPane.showMessageDialog(itse, "Muutoksia ei voitu tallentaa, koska tuotteen uusi nimi on jo käytössä", "Virhe" , JOptionPane.WARNING_MESSAGE);
             			}
             		}
             		else {
@@ -227,7 +231,7 @@ public class EditMessage extends JFrame{
         this.getContentPane().add(sisus);
         
      // Haetaan ilmoituksen tiedot tietokannasta
-        try {
+        /*try {
 			Message valittu = MessageDatabase.getInstance().getMessage(tuote);
 			nimirivi.setText(valittu.getName());
 			sijaintirivi.setText(valittu.getLocation());
@@ -237,7 +241,12 @@ public class EditMessage extends JFrame{
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(itse, "Ilmoituksen tietojen hakemisessa tapahtui virhe", "Virhe" , JOptionPane.ERROR_MESSAGE);
 			dispose();
-		}
+		}*/
+        // Haetaan ilmoituksen tiedot annetsta oliosta
+        nimirivi.setText(ilmoitus.getName());
+		sijaintirivi.setText(ilmoitus.getLocation());
+		hintarivi.setText(String.valueOf(ilmoitus.getPrice()));
+		kuvausrivi.setText(ilmoitus.getMessage());
         
         //lis�t��n ikkunaan viel� toiminnallisuus, joka sulkee ohjelman
         //k�ytet��n t�ss�kin sis�luokkaa.
@@ -245,15 +254,17 @@ public class EditMessage extends JFrame{
             public void windowClosing(WindowEvent e){
                 //System.exit(0);
                 dispose();
+                OmatIlmoitukset jata = new OmatIlmoitukset(ilmoitus.getUser());
+
             }
         });
         
     }
     
-     public static void main(String[] args) {
+     /*public static void main(String[] args) {
     	 String tuote = "auto";
     	 String kayttaja = "käyttäjä";
     	 EditMessage sovellus = new EditMessage(tuote, kayttaja);
         sovellus.setVisible(true);  
-    }
+    }*/
 }
