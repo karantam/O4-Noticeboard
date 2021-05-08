@@ -160,12 +160,14 @@ public class AnswerMessage extends JFrame{
         
         //Asetetaan nappien toiminnallisuudet
         
+        //peruuta sulkee ikkunan
         peruuta.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
             	dispose();
             }
         });
         
+        //laheta tallentaa vastauksen tietokantaan
         laheta.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
             	String vastausteksti = vastausrivi.getText();

@@ -123,12 +123,15 @@ public class ShowMessage extends JFrame{
         nappisisus.setLayout(nappibox);
         
         //Asetetaan nappien toiminnallisuudet
+        
+        //peruuta sulkee ikkunan
         peruuta.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
             	dispose();
             }
         });
         
+        //kirjaudu avaa kirjaudu sisään ikkunan
         kirjaudu.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
             	KirjauduSisaan kirjaudu = new KirjauduSisaan(paa, 1,tuote);

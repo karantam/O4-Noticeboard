@@ -114,6 +114,8 @@ public class EditMessage extends JFrame{
         nappisisus.setLayout(nappibox);
         
         //Asetetaan nappien toimnnallisuudet.
+        
+        //peruutta sulkee ikkunan
         peruuta.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
             	dispose();
@@ -122,6 +124,7 @@ public class EditMessage extends JFrame{
             }
         });
         
+        //tallenna tallentaa muutokset tietokantaan
         tallenna.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
             	String nimi = nimirivi.getText();
