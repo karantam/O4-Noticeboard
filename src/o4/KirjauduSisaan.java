@@ -1,6 +1,5 @@
 package o4;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,9 +20,34 @@ import javax.swing.JTextField;
 
 public class KirjauduSisaan implements ActionListener {
 	
-	MainWindow paa;
-	int palataan;
-	String tuote;
+	/*
+	Panel_1
+	___________________________________________________________________
+	
+	label_1("Käyttäjänimi: ")			<-->	textfield_1
+	
+	label_2("Salasama: ")				<-->	textfield_2
+	
+	___________________________________________________________________
+	
+	Panel_2
+	___________________________________________________________________
+	
+	label_3("Eikö sinulla ole tiliä?")	<-->	button_1("Rekisteröidy")
+	
+	___________________________________________________________________
+	
+	Panel_3
+	___________________________________________________________________
+	
+	button_2("Kirjaudu sisään")			<-->	button_3("Peruuta")
+	___________________________________________________________________
+	*/
+	
+	MainWindow paa;		//Mahdollistaa MainWindowin metodien käytön.
+	int palataan;		//Tämä määrittää, että mihin ikkunaan palataan kirjautumisen jälkeen.
+	String tuote;		//Mikäli ennen tätä ikkunaa "Näytä ilmoitus", navigoidaan tämän ikkunan jälkeen
+						//new AnswerMessage(tuote).
 
 	//panel_1
 	JLabel label_1 = new JLabel("Käyttäjänimi:      ");
@@ -50,8 +74,6 @@ public class KirjauduSisaan implements ActionListener {
 		//panel_1
 		
 		//Minimit ja maksimit
-		
-		
 		label_1.setMinimumSize(label_1.getPreferredSize());
 		label_1.setMaximumSize(label_1.getPreferredSize());
 		label_2.setMinimumSize(label_1.getPreferredSize());
@@ -65,7 +87,7 @@ public class KirjauduSisaan implements ActionListener {
 		
 		
 		//Tyyli
-		
+	
 		JPanel panel_11 = new JPanel(); 
 		BoxLayout boxlayout_panel_11 = new BoxLayout(panel_11, BoxLayout.X_AXIS);
 		panel_11.setLayout(boxlayout_panel_11);
@@ -177,14 +199,13 @@ public class KirjauduSisaan implements ActionListener {
 		frame.setMinimumSize(new Dimension(350, 240));
 		frame.setLocationRelativeTo(null);
 		frame.add(mainPanel);
-		//frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setResizable(true);
 		frame.setVisible(true);
 		frame.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
-                //System.exit(0);
                 frame.dispose();
-                if (palataan != 0) {
+                if (palataan != 0) {	//Palataan ikkunaan ShowMessage, 
+                						//jos käyttäjä painaa rastia, ja jos hän on tullut sieltä
     				ShowMessage answer = new ShowMessage(paa, tuote);
     				answer.setVisible(true);
     			}
@@ -193,25 +214,15 @@ public class KirjauduSisaan implements ActionListener {
 		
 	}
 
-	
-	/*public static void main(String[] args) {
-		new KirjauduSisaan("MainWindow");
-	}*/
-
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == button_1) {
-			System.out.println("Rekisteröidy");
+		if(e.getSource() == button_1) {		//Navigoidaan Rekisteröidy-ikkunaan
 			new Rekisteroityminen(paa, palataan, tuote);
 			frame.dispose();
 		}
-		if(e.getSource() == button_2) {
-			System.out.println("Kirjaudu sisään");
+		if(e.getSource() == button_2) {		//Kirjaudutaan sisään, jos ei tule exceptioneita
 			String userName = textfield_1.getText();
 			String password = textfield_2.getText(); //JPassword.getText() saattaa kusta joissain versioissa	
-			System.out.println(userName);
-			System.out.println(password);
 			boolean value = false;
 			try {
 				value = MessageDatabase.getInstance().checkUser(userName, password);
@@ -229,19 +240,10 @@ public class KirjauduSisaan implements ActionListener {
 			} else {
 				JOptionPane.showMessageDialog(frame, "Käyttäjänimi tai salasana ei kelpaa", "Virhe" , JOptionPane.WARNING_MESSAGE);
 			}
-			/*if(palataan == "MainWindow") {
-				// return userName;
-				// new MainWindow(userName);
-				//tai uploadataan pääikkuna
-				System.out.println("Palataan aloitusnäkymään");
-			}
-			if(palataan == "AnswerMessage") {
-				// new AnswerMessage();
-				System.out.println("Palataan AnswerMessage - ikkunaan");
-			}*/
+			
 		}
 		if(e.getSource() == button_3) {
-			System.out.println("Peruuta");
+			//Painamalla "Peruuta" palataan ikkunaan ShowMessage, jos kääyttäjä on tullut sieltä.
 			frame.dispose();
 			if (palataan != 0) {
 				ShowMessage answer = new ShowMessage(paa, tuote);

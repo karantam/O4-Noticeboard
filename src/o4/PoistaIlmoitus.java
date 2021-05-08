@@ -4,22 +4,25 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
-import java.awt.FlowLayout;
 
 
 public class PoistaIlmoitus implements ActionListener {
+	/*
+	Tämä luokkaa avaa ikkunan, jossa kysytään käyttäjältä varmistusta 
+	ilmoituksen poistosta. Jos käyttäjä painaa "Kyllä", ilmoitus poistuu databasesta,
+	jos käyttäjä painaa "Ei" tai sulkee ikkunan rastista, toiminto peruuntuu.
+	*/
+	
 	
 	Message ilmoitus;		//Käsiteltävä ilmoitus
 	
@@ -34,6 +37,7 @@ public class PoistaIlmoitus implements ActionListener {
 		
 		this.ilmoitus = ilmoitus;
 		
+		//Komponenttien toiminnallisuus
 		label_1 = new JLabel("Haluatko varmasti poistaa valitun ilmoituksen:");
 		label_2 = new JLabel(ilmoitus.getName() + "?");
 		
@@ -90,7 +94,6 @@ public class PoistaIlmoitus implements ActionListener {
 		frame.add(mainPanel);
 		frame.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
-                //System.exit(0);
                 frame.dispose();
                 new OmatIlmoitukset(ilmoitus.getUser());
             }
@@ -99,35 +102,24 @@ public class PoistaIlmoitus implements ActionListener {
 		frame.setVisible(true);
 	}
 	
-	
-	
-	/*public static void main(String[] args) {
-		ilmoitus ilmoitus_1 = new ilmoitus("Trip stopper", "Amsterdam", "2.50", "toimii aina");
-		new PoistaIlmoitus(ilmoitus_1);
-	}*/
-
-
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == button_1) {
-			System.out.println("Poistetaan ilmoitus nimeltään " + ilmoitus);	//Käydään sorkkimassa kayttajan ilmoituslistaa
+		if(e.getSource() == button_1) {		//Jos button_1-heräte, ilmoitus poistetaan databasesta
 			boolean value = false;
 			try {
 				value = MessageDatabase.getInstance().deleteMessage(ilmoitus);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			if (value) {
 				JOptionPane.showMessageDialog(frame, "Ilmoitus poistettu onnistuneesti", "Viesti" , JOptionPane.PLAIN_MESSAGE);
 				frame.dispose();
-				new OmatIlmoitukset(ilmoitus.getUser());
+				new OmatIlmoitukset(ilmoitus.getUser());	//Palataan takaisin ikkunaan "Omat ilmoitukset"
 			} else {
 				JOptionPane.showMessageDialog(frame, "Ilmoituksen poistaminen epäonnistui", "Virhe" , JOptionPane.ERROR_MESSAGE);
 			}
 		}
-		if(e.getSource() == button_2) {
+		if(e.getSource() == button_2) {		//Jos button_2-heräte, palataan takaisin ikkunaan "Omat ilmoitukset"
 			frame.dispose();
 			new OmatIlmoitukset(ilmoitus.getUser());
 		}

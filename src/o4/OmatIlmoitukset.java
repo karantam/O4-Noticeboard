@@ -1,6 +1,5 @@
 package o4;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,27 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class OmatIlmoitukset implements ItemListener{
-	
-	
-	//testi
-	/*
-	vastaus[] vastaukset_1 = {new vastaus("nimimerkki_11", "vastaus_11", "yhetystieto_11"), 
-							new vastaus("nimimerkki_12", "vastaus_12", "yhetystieto_12"), 
-							new vastaus("nimimerkki_13", "vastaus_13", "yhetystieto_13")};
-	
-	vastaus[] vastaukset_2 = {new vastaus("nimimerkki_21", "vastaus_21", "yhetystieto_21"), 
-							new vastaus("nimimerkki_22", "vastaus_22", "yhetystieto_22"), 
-							new vastaus("nimimerkki_23", "vastaus_23", "yhetystieto_23")};
-	
-	vastaus[] vastaukset_3 = {new vastaus("nimimerkki_31", "vastaus_31", "yhetystieto_31"), 
-							new vastaus("nimimerkki_32", "vastaus_32", "yhetystieto_32"), 
-							new vastaus("nimimerkki_33", "vastaus_33", "yhetystieto_33")};
-	
-	ilmoitus[] ilmoitukset = {new ilmoitus("nimi_1", "sijainti_1", "hinta_1", "kuvaus_1"),
-								new ilmoitus("nimi_2", "sijainti_2", "hinta_2", "kuvaus_2"),
-								new ilmoitus("nimi_3", "sijainti_3", "hinta_3", "kuvaus_3")};
-								*/
-	
 	
 	
 	/*		KOMPONENTIT JA NIIDEN ASETTELUT 
@@ -115,14 +93,15 @@ public class OmatIlmoitukset implements ItemListener{
 
 	
 	public OmatIlmoitukset(String kayttaja) {
-		button_1.setEnabled(false);
-		button_2.setEnabled(false);
+		button_1.setEnabled(false);		//Asetetaan muokkaa- ja poista-nappi aluksi pois käytöstä
+		button_2.setEnabled(false);		//ja laitetaan ne käyttöön, mikäli käyttäjällä on ilmoituksia
 		
+		
+		//Tehdään ilmoituksista [], jotta combobox ei suutu
 		List<Message> ilmoitukset = null;
 		try {
 			ilmoitukset = MessageDatabase.getInstance().getUsersMessages(kayttaja);
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -132,23 +111,12 @@ public class OmatIlmoitukset implements ItemListener{
 		} else {
 			ilmoitukset_2 = new Message[1];
 		}
-		ilmoitukset_2[0] = new Message("","","",0,"");
+		ilmoitukset_2[0] = new Message("","","",0,"");	//Tehdään listan alkuun tyhjä alkio, jotta combobox toimii varmasti
 		if (ilmoitukset != null && !ilmoitukset.isEmpty()) {
 			for (int i = 0; i < ilmoitukset.size(); i++) {
 				ilmoitukset_2[i] = (ilmoitukset.get(i));
 			}
 		}
-		
-		//testi
-		//ilmoitus ilmoitus_1 = new ilmoitus("nimi_1", "sijainti_1", "hinta_1", "kuvaus_1kuvaus_1kuvaus_1kuvaus_1kuvaus_1kuvaus_1");
-		//ilmoitus ilmoitus_2 = new ilmoitus("nimi_2", "sijainti_2", "hinta_2", "kuvaus_2");
-		//ilmoitus[] ilmoitukset = {ilmoitus_1, ilmoitus_2};
-		
-		//ilmoitus_1.vastaanotaVastaus(new vastaus("nimimerkki_11", "vastaus_11vastaus_11vastaus_11vastaus_11vastaus_11", "yhetystieto_11"));
-		//ilmoitus_1.vastaanotaVastaus(new vastaus("nimimerkki_12", "vastaus_12vastaus_12vastaus_12vastaus_12vastaus_12", "yhetystieto_12"));
-		//ilmoitus_2.vastaanotaVastaus(new vastaus("nimimerkki_21", "vastaus_21vastaus_21vastaus_21vastaus_21vastaus_21", "yhetystieto_21"));
-		//ilmoitus_2.vastaanotaVastaus(new vastaus("nimimerkki_22", "vastaus_22vastaus_22vastaus_22vastaus_22vastaus_22", "yhetystieto_22"));
-		
 		
 		
 		//yleinen toiminnallisuus panel_1
@@ -160,17 +128,17 @@ public class OmatIlmoitukset implements ItemListener{
 		String sijainti = valittuIlmoitus.getLocation();
 		String hinta = String.valueOf(valittuIlmoitus.getPrice());
 		String kuvaus = valittuIlmoitus.getMessage();
-		//vastaus[] ilmoituksen_vastaukset = valittuIlmoitus.getVastaukset();
+		//Jos ilmoituksia on olemassa, asetetaan muokkaa- ja poista-nappi käytettäväksi
 		if (!valittuIlmoitus.getName().isBlank()) {
 			button_1.setEnabled(true);
 			button_2.setEnabled(true);
 		}
 		
+		//Tehdään vastauksista [], jotta combobox ei suutu
 		List<Answer> vastaukset = null;
 		try {
 			vastaukset = MessageDatabase.getInstance().getAnswers(valittuIlmoitus.getName());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Answer[] vastaukset_2;
@@ -179,7 +147,7 @@ public class OmatIlmoitukset implements ItemListener{
 		} else {
 			vastaukset_2 = new Answer[1];
 		}
-		vastaukset_2[0] = new Answer("","","","");
+		vastaukset_2[0] = new Answer("","","","");  //Tehdään listan alkuun tyhjä alkio, jotta combobox toimii varmasti
 		for (int i = 0; i < vastaukset.size(); i++) {
 			vastaukset_2[i] = (vastaukset.get(i));
 		}
@@ -217,7 +185,7 @@ public class OmatIlmoitukset implements ItemListener{
 		button_2.addActionListener(nappikuuntelija);
 		button_3.addActionListener(nappikuuntelija);
 		
-		//ALKULIMA
+		//ALKULIMA	---	Komponenttien ja marginaalien koot
 		int x = 120;
 		int x_2 = 250;
 		int y = 30;
@@ -372,14 +340,11 @@ public class OmatIlmoitukset implements ItemListener{
 		button_3.setMaximumSize(button_1.getPreferredSize());
 		
 		JPanel panel_3 = new JPanel();
-		//BoxLayout boxlayout_panel_3 = new BoxLayout(panel_3, BoxLayout.X_AXIS);
 		
 		JPanel panel_3_sub = new JPanel();
 		BoxLayout boxlayout_panel_3_sub = new BoxLayout(panel_3_sub, BoxLayout.X_AXIS);
 		
 		
-		//panel_3.setLayout(boxlayout_panel_3);
-				
 		panel_3_sub.setLayout(boxlayout_panel_3_sub);
 		
 		panel_3_sub.add(button_1);
@@ -420,13 +385,6 @@ public class OmatIlmoitukset implements ItemListener{
 		
 	}
 	
-	
-	/*public static void main(String[] args) {
-		new OmatIlmoitukset();	
-	}*/
-	
-
-
 	public void itemStateChanged(ItemEvent e) {
 		//Reagoidaan comboboxien valittujen itemien muutokseen
 		if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -446,7 +404,6 @@ public class OmatIlmoitukset implements ItemListener{
 	   			try {
 	   				vastaukset = MessageDatabase.getInstance().getAnswers(valittuIlmoitus.getName());
 	   			} catch (SQLException ex) {
-	   				// TODO Auto-generated catch block
 	   				ex.printStackTrace();
 	   			}
 	   			Answer[] vastaukset_2;
@@ -494,19 +451,11 @@ class napit implements ActionListener{
 	
 	
 	public void actionPerformed(ActionEvent e) {
-		//Tänne tullaan lisäämään toiminnallisuuttaa: ilmoitus.muokkaa() ja 
-		//ilmoitus.muokkaa() ja ilmoitus.poista
 		
 		if((JButton)e.getSource() == oi.button_1) {
 			//Siirrytään muokkaamaan valittua ilmoitusta
 			Message valittuIlmoitus = (Message) oi.box_1.getSelectedItem();
-			
-			//System.out.println(valittuIlmoitus);
 			oi.frame.dispose();
-			//System.out.println("Muokkaa");
-			
-			// new EditMessage(valittuIlmoitus);
-			// Tähän siis ...
 			EditMessage edit = new EditMessage(valittuIlmoitus);
             edit.setVisible(true);
 		}

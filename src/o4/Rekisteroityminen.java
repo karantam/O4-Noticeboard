@@ -1,7 +1,5 @@
 package o4;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -115,6 +113,8 @@ public class Rekisteroityminen implements ActionListener {
 		
 		panel_1.setBorder(BorderFactory.createRaisedBevelBorder());
 		
+		
+		
 		//panel_2
 		
 		//toiminnallisuus
@@ -133,15 +133,9 @@ public class Rekisteroityminen implements ActionListener {
 		button_2.setMaximumSize(button_1.getPreferredSize());
 		
 		JPanel panel_2 = new JPanel();
-		//BoxLayout boxlayout_panel_2 = new BoxLayout(panel_2, BoxLayout.X_AXIS);
 		
 		JPanel panel_2_sub = new JPanel();
 		BoxLayout boxlayout_panel_2_sub = new BoxLayout(panel_2_sub, BoxLayout.X_AXIS);
-		//panel_2_sub.setBorder(BorderFactory.createRaisedBevelBorder());
-		
-		
-		//panel_2.setLayout(boxlayout_panel_2);
-		
 		panel_2_sub.setLayout(boxlayout_panel_2_sub);
 		
 		panel_2_sub.add(button_1);
@@ -151,9 +145,6 @@ public class Rekisteroityminen implements ActionListener {
 		
 		panel_2.add(panel_2_sub);
 		
-		
-		//sisus.add(Box.createVerticalGlue()); TÄRKEÄÄ!!!
-		//nappi.setAlignmentX(CENTER_ALIGNMENT)
 
 		
 		//mainPanel
@@ -178,48 +169,35 @@ public class Rekisteroityminen implements ActionListener {
 		frame.setMinimumSize(new Dimension(350, 230));
 		frame.setLocationRelativeTo(null);
 		frame.add(mainPanel);
-		//frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setResizable(true);
 		frame.setVisible(true);
 		frame.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
-                //System.exit(0);
                 frame.dispose();
                 KirjauduSisaan kirjaudu = new KirjauduSisaan(paa, palataan, tuote);
             }
         });
 		
 	}
-	
-	
-	
-	
-	/*public static void main(String[] args) {
-		new Rekisteroityminen("MainWindow");
-	}*/
-
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == button_1) {
-			String userName = textfield_1.getText();
-			String email = textfield_2.getText();
-			String password = textfield_3.getText();
-			String passwordAgain = textfield_4.getText();
+			String userName = textfield_1.getText();		
+			String email = textfield_2.getText();			
+			String password = textfield_3.getText();		
+			String passwordAgain = textfield_4.getText();	
 			
-			if(informationsAreAllowed(userName, email, password, passwordAgain)) {
-				System.out.println("Rekisteröidy");
-				System.out.println("Luodaan uusi käyttäjä databaseen");
+			if(informationsAreAllowed(userName, email, password, passwordAgain)) {	//Mikäli annetut tiedot ovat kunnossa...
 				User kayttaja = new User(userName, password, email);
 				boolean value = false;
-				try {
+				try {					//Lisätään uusi käyttäjä databaseen
 					value = MessageDatabase.getInstance().setUser(kayttaja);
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(frame, "Käyttäjänimen ja salasanan rekisteröinnissä tapahtui virhe", "Virhe" , JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
-				if(value) {
+				if(value) {				//Jos rekisteröityminen onnistuu, kirjaudutaan automaattisesti sisään
 					paa.kirjautuminen(userName);
 					frame.dispose();
 					if (palataan != 0) {
@@ -232,18 +210,10 @@ public class Rekisteroityminen implements ActionListener {
 					textfield_3.setText("");
 					textfield_4.setText("");
 				}
-				/*if(palataan == "AnswerMessage") {
-					//Palataan vastaamisikkunaan
-					System.out.println("Palataam AnswerMessage - ikkunaan");
-				}
-				if(palataan == "MainWindow") {
-					//Palataan aloitusnäkymään tai päivitetään se
-					System.out.println("Palataan aloitusnäkymään");
-				}*/
-			//else {return;}
+				
 			}
 		}
-		if(e.getSource() == button_2) {
+		if(e.getSource() == button_2) {	//Kun klikataan "Peruuta", palataan KirjauduSisään-ikkunaan.
 			KirjauduSisaan kirjaudu = new KirjauduSisaan(paa, palataan, tuote);
 			frame.dispose();
 			}
@@ -300,7 +270,18 @@ public class Rekisteroityminen implements ActionListener {
 	
 	
 	//Tietojen tarkistus - funktio
+	
 	public boolean informationsAreAllowed(String userName, String email, String password, String passwordAgain){
+		/*Käyttää apunaan 4kpl apufunktioita. Ilmoittaa (järjestyksessä), jos annettu tieto on virheellinen
+		ja tyhjentää tietoa vastaavan tekstikentän.
+		
+		Käyttäjätietojen vaatimukset: 
+			Käyttäjänimi: 3-20 merkkiä pitkä
+			Sähköposti: Sisältää merkin "@"
+			Salasana: 6-18 merkkiä pitkä
+			Vahvista salasana: Samaa kuin Salasana
+		*/
+		
 		String problem;
 		
 		problem = checkUserName(userName);
