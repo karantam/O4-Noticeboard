@@ -50,7 +50,7 @@ public class MessageDatabase {
     private boolean initializeDatabase() throws SQLException {
         if (null != dbConnection) {
             // Creating three tables in the database. Registration for user information,
-            // chat for chat messages and channel for created channels
+            // message for messages and answer for answers
             String registrationDB = "create table registration (user varchar(50) PRIMARY KEY, userpassword varchar(50) NOT NULL, useremail varchar(50) NOT NULL)";
             String messageDB = "create table message (id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar(50) NOT NULL, messagename varchar(50) NOT NULL, location varchar(50) NOT NULL, price DOUBLE(10,2) NOT NULL, message varchar(800) NOT NULL)";
             String answerDB = "create table answer (messagename varchar(50) NOT NULL, username varchar(50) NOT NULL, answer varchar(800) NOT NULL, contact varchar(50) NOT NULL)";
@@ -88,16 +88,12 @@ public class MessageDatabase {
      * already in use.
      */
     public boolean setUser(User user) throws SQLException {
-        // Registering a new user
         User existing = getUser(user.getUsername());
         // Checking if the user name is already in use
         if (existing.getUsername() != null && existing.getUsername().equals(user.getUsername())) {
         	System.out.println("ERROR: Invalid User");
             return false;
         } else {
-            // Securing the password before saving it
-            //String hashedPassword = Crypt.crypt(user.getPassword());
-            // Saving the data of the new user into the database
             String setMessageString = "insert into registration VALUES('" + user.getUsername().replace("'", "''")
                     + "','" + user.getPassword() + "','" + user.getEmail().replace("'", "''") + "')";
             try (Statement createStatement = dbConnection.createStatement()) {
@@ -124,7 +120,6 @@ public class MessageDatabase {
             ResultSet rs = queryStatement.executeQuery(getMessagesString);
             while (rs.next()) {
                 username = rs.getString("user");
-                // This version of the password has been hashed
                 password = rs.getString("userpassword");
                 email = rs.getString("useremail");
             }
@@ -142,7 +137,6 @@ public class MessageDatabase {
      */
     public boolean checkUser(String username, String password) throws SQLException {
         User existing = getUser(username);
-
         if (existing.getUsername() != null && existing.getUsername().equals(username) && existing.getPassword() != null
                 && existing.getPassword().equals(existing.getPassword())) {
         	System.out.println("User OK");
@@ -156,7 +150,7 @@ public class MessageDatabase {
  // Methods for the message table
 
     /*
-     * setMessage method saves a new message into the database.
+     * setMessage method saves a new message into the database. It returns TRUE if there were no problems
      */
     public boolean setMessage(Message message) throws SQLException {
         String setMessageString;
@@ -173,12 +167,11 @@ public class MessageDatabase {
     }
 
     /*
-     * editMessage method edits a previously saved message in the database
+     * editMessage method edits a previously saved message in the database. It returns TRUE if there were no problems
      */
     public boolean editMessage(Message message, String oldName) throws SQLException {
         String editMessageString;
         int messageId = getId(oldName);
-        // Editing a message 
         editMessageString = "UPDATE message SET username = '" + message.getUser().replace("'", "''") + "', messagename = '"
         		+ message.getName().replace("'", "''") + "', location = '" + message.getLocation().replace("'", "''") 
         		+ "', price = '" + message.getPrice() + "', message = '" + message.getMessage().replace("'", "''") + "' WHERE id = '" + messageId + "'";
@@ -194,12 +187,11 @@ public class MessageDatabase {
     }
 
     /*
-     * deleteMessage method deletes a previously saved message
+     * deleteMessage method deletes a previously saved message. It returns TRUE if there were no problems
      */
     public boolean deleteMessage(Message message) throws SQLException {
         String editMessageString;
         int messageId = getId(message.getName());
-        // Deleting a message
         editMessageString = "DELETE FROM message  WHERE id = '" + messageId + "'";
         
         try (Statement createStatement = dbConnection.createStatement()) {
@@ -217,9 +209,7 @@ public class MessageDatabase {
      */
     public List<Message> getAllMessages() throws SQLException {
         ArrayList<Message> messages = new ArrayList<>();
-        // Getting all the messages
         String getMessagesString;
-        // Handling the case where there is no channel and no time
         getMessagesString = "select username, messagename, location, price, message from message order by LOWER(messagename) ASC";
         String username = null;
         String messagename = null;
@@ -251,9 +241,7 @@ public class MessageDatabase {
      */
     public List<Message> getUsersMessages(String user) throws SQLException {
         ArrayList<Message> messages = new ArrayList<>();
-        // Getting all the messages
         String getMessagesString;
-        // Handling the case where there is no channel and no time
         getMessagesString = "select username, messagename, location, price, message from message WHERE username ='" + user.replace("'", "''") + "' order by LOWER(messagename) ASC";
         String username = null;
         String messagename = null;
@@ -285,9 +273,7 @@ public class MessageDatabase {
      */
     public Message getMessage(String target) throws SQLException {
         Message message = null;
-        // Getting all the messages
         String getMessagesString;
-        // Handling the case where there is no channel and no time
         getMessagesString = "select username, messagename, location, price, message from message WHERE messagename ='" + target.replace("'", "''") + "'";
         String username = null;
         String messagename = null;
@@ -339,7 +325,6 @@ public class MessageDatabase {
      * It returns true if the messagename is not in use.
      */
     public boolean checkMessage(String messageName) throws SQLException {
-        // Getting the id number
         String getMessagesString;
         getMessagesString = "select messagename from message WHERE messagename ='" + messageName.replace("'", "''") + "'";
         String exists = null;
@@ -364,11 +349,10 @@ public class MessageDatabase {
  // Methods for the answer table
 
     /*
-     * setAnswer method saves a new message into the database.
+     * setAnswer method saves a new message into the database. It returns TRUE if there were no problems
      */
     public boolean setAnswer(Answer answer) throws SQLException {
         String setMessageString;
-                // Handling a message without a channel and without a location
                 setMessageString = "insert into answer  (messagename, username, answer, contact) VALUES('"
                         + answer.getMessageName().replace("'", "''") + "','" + answer.getUser().replace("'", "''") + "','"
                         + answer.getAnswerText().replace("'", "''") + "','" + answer.getContact().replace("'", "''") + "')";
@@ -388,7 +372,6 @@ public class MessageDatabase {
         ArrayList<Answer> answers = new ArrayList<>();
         // Getting all the messages
         String getMessagesString;
-        // Handling the case where there is no channel and no time
         getMessagesString = "select messagename, username, answer, contact from answer WHERE messagename ='" + target.replace("'", "''") + "'";
         String messagename = null;
         String username = null;
@@ -414,7 +397,7 @@ public class MessageDatabase {
     }
     
     /*
-     * editAnswers method edits a previously saved answer in the database
+     * editAnswers method edits a previously saved answer in the database. It returns TRUE if there were no problems.
      */
     public boolean editAnswers(String target, String newName) throws SQLException {
         String editMessageString;
@@ -431,7 +414,7 @@ public class MessageDatabase {
     }
     
     /*
-     * deleteAnswer method deletes answers to a deleted message
+     * deleteAnswer method deletes answers to a deleted message. It returns TRUE if there were no problems
      */
     public boolean deleteAnswers(String target) throws SQLException {
         String editMessageString;

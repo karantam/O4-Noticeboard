@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -39,7 +38,7 @@ public class EditMessage extends JFrame{
     private JPanel hintasisus;
     private JPanel kuvaussisus;
     private JPanel nappisisus;
-    private JFrame itse; //Talletuspaikka ikkunan viittaukselle itseens�
+    private JFrame itse; //Talletuspaikka ikkunan viittaukselle itseensä
     
     
     public EditMessage(Message ilmoitus) {
@@ -76,7 +75,6 @@ public class EditMessage extends JFrame{
         kuvaus.setMinimumSize(nimi.getPreferredSize());
         kuvaus.setMaximumSize(nimi.getPreferredSize());
         kuvausrivi = new JTextArea (6,30);
-        //kuvausrivi.setMaximumSize(kuvausrivi.getPreferredSize());
         kuvausrivi.setLineWrap(true);
         kuvausalue = new JScrollPane(kuvausrivi);
         kuvausalue.setMinimumSize(kuvausalue.getPreferredSize());
@@ -86,7 +84,6 @@ public class EditMessage extends JFrame{
         peruuta = new JButton ("Peruuta");
         peruuta.setPreferredSize(tallenna.getPreferredSize());
         
-        //paneli = new JPanel(new FlowLayout());
         sisus = new JPanel();
         BoxLayout boxlayout = new BoxLayout(sisus, BoxLayout.Y_AXIS);
         sisus.setLayout(boxlayout);
@@ -99,33 +96,26 @@ public class EditMessage extends JFrame{
         nimisisus = new JPanel();
         BoxLayout nimibox = new BoxLayout(nimisisus, BoxLayout.X_AXIS);
         nimisisus.setLayout(nimibox);
-        //nimisisus.setBackground(Color.blue);
         
         sijaintisisus = new JPanel();
         BoxLayout sijaintibox = new BoxLayout(sijaintisisus, BoxLayout.X_AXIS);
         sijaintisisus.setLayout(sijaintibox);
-        //sijaintisisus.setBackground(Color.red);
         
         hintasisus = new JPanel();
         BoxLayout hintabox = new BoxLayout(hintasisus, BoxLayout.X_AXIS);
         hintasisus.setLayout(hintabox);
-        //hintasisus.setBackground(Color.orange);
         
         kuvaussisus = new JPanel();
         BoxLayout kuvausbox = new BoxLayout(kuvaussisus, BoxLayout.X_AXIS);
         kuvaussisus.setLayout(kuvausbox);
-        //kuvaussisus.setBackground(Color.yellow);
         
         nappisisus = new JPanel();
         BoxLayout nappibox = new BoxLayout(nappisisus, BoxLayout.X_AXIS);
         nappisisus.setLayout(nappibox);
-        //nappisisus.setBackground(Color.cyan);
         
-        //Lis�t��n napille toiminnallisuus nimett�m�n sis�luokan avulla.
-        //Toiminnallisuus on sama kuin EchoListener-luokassa.
+        //Asetetaan nappien toimnnallisuudet.
         peruuta.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-            	//System.exit(0);
             	dispose();
             	OmatIlmoitukset jata = new OmatIlmoitukset(ilmoitus.getUser());
 
@@ -142,7 +132,6 @@ public class EditMessage extends JFrame{
             	try {
             		hintaluku = Double.parseDouble(hinta);
             		if (!nimi.isBlank() && nimi.length() > 3 && !sijainti.isBlank() && sijainti.length() > 2 && hintaluku > 0 && !kuvaus.isBlank() && kuvaus.length() > 5) {
-            			//Message ilmoitus = new Message(lahettaja, nimi, sijainti, hintaluku, kuvaus);
             			boolean value = false;
             			boolean value2 = false;
             			//Tarkistetaan onko tuotteen nimi jo käytössä ellei se ole sama kuin vanha tuotteen nimi 
@@ -179,30 +168,24 @@ public class EditMessage extends JFrame{
         //koostetaan panelit
         nimisisus.add(Box.createRigidArea(new Dimension(10,1)));
         nimisisus.add(nimi);
-        //nimisisus.add(Box.createHorizontalGlue());
-        //nimirivi.setAlignmentX(Component.RIGHT_ALIGNMENT);
         nimisisus.add(nimirivi);
         nimisisus.add(Box.createRigidArea(new Dimension(10,1)));
         
         sijaintisisus.add(Box.createRigidArea(new Dimension(10,1)));
         sijaintisisus.add(sijainti);
-        //sijaintisisus.add(Box.createHorizontalGlue());
         sijaintisisus.add(sijaintirivi);
         sijaintisisus.add(Box.createRigidArea(new Dimension(10,1)));
         
         hintasisus.add(Box.createRigidArea(new Dimension(10,1)));
         hintasisus.add(hinta);
-        //hintasisus.add(Box.createHorizontalGlue());
         hintasisus.add(hintarivi);
         hintasisus.add(Box.createRigidArea(new Dimension(10,1)));
         
         kuvaussisus.add(Box.createRigidArea(new Dimension(10,1)));
         kuvaussisus.add(kuvaus);
-        //kuvaussisus.add(Box.createHorizontalGlue());
         kuvaussisus.add(kuvausalue);
         kuvaussisus.add(Box.createRigidArea(new Dimension(10,1)));
         
-        //nappisisus.add(Box.createHorizontalStrut( 20 ));
         nappisisus.add(Box.createRigidArea(new Dimension(20,40)));
         nappisisus.add(tallenna);
         nappisisus.add(Box.createHorizontalGlue());
@@ -212,7 +195,6 @@ public class EditMessage extends JFrame{
         //koostetaan pääpaneeli
         sisus2.add(Box.createVerticalGlue());
         sisus2.add(nimisisus);
-        //nimisisus.setAlignmentX_ALIGNMENT);
         sisus2.add(Box.createVerticalGlue());
         sisus2.add(sijaintisisus);
         sisus2.add(Box.createVerticalGlue());
@@ -230,29 +212,15 @@ public class EditMessage extends JFrame{
 
         this.getContentPane().add(sisus);
         
-     // Haetaan ilmoituksen tiedot tietokannasta
-        /*try {
-			Message valittu = MessageDatabase.getInstance().getMessage(tuote);
-			nimirivi.setText(valittu.getName());
-			sijaintirivi.setText(valittu.getLocation());
-			hintarivi.setText(String.valueOf(valittu.getPrice()));
-			kuvausrivi.setText(valittu.getMessage());
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			JOptionPane.showMessageDialog(itse, "Ilmoituksen tietojen hakemisessa tapahtui virhe", "Virhe" , JOptionPane.ERROR_MESSAGE);
-			dispose();
-		}*/
-        // Haetaan ilmoituksen tiedot annetsta oliosta
+        // Haetaan ilmoituksen tiedot annetusta oliosta
         nimirivi.setText(ilmoitus.getName());
 		sijaintirivi.setText(ilmoitus.getLocation());
 		hintarivi.setText(String.valueOf(ilmoitus.getPrice()));
 		kuvausrivi.setText(ilmoitus.getMessage());
         
-        //lis�t��n ikkunaan viel� toiminnallisuus, joka sulkee ohjelman
-        //k�ytet��n t�ss�kin sis�luokkaa.
+        //Asetetaan raksin toiminnallisuus
         this.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
-                //System.exit(0);
                 dispose();
                 OmatIlmoitukset jata = new OmatIlmoitukset(ilmoitus.getUser());
 
@@ -260,11 +228,4 @@ public class EditMessage extends JFrame{
         });
         
     }
-    
-     /*public static void main(String[] args) {
-    	 String tuote = "auto";
-    	 String kayttaja = "käyttäjä";
-    	 EditMessage sovellus = new EditMessage(tuote, kayttaja);
-        sovellus.setVisible(true);  
-    }*/
 }

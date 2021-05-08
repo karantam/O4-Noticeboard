@@ -1,14 +1,11 @@
 package o4;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -55,7 +52,7 @@ public class MainWindow extends JFrame{
     private JPanel ohjesisus;
     private JTable lista;
     private JScrollPane listakehys;
-    private JFrame itse; //Talletuspaikka ikkunan viittaukselle itseens�
+    private JFrame itse; //Talletuspaikka ikkunan viittaukselle itseensä
     
     private Object[][] data = null;
     
@@ -76,17 +73,20 @@ public class MainWindow extends JFrame{
         kirjaudu = new JButton("Kirjaudu sisään");
         hae = new JButton("Hae");
         omat.setMaximumSize(omat.getPreferredSize());
+        omat.setFocusable(false);
         ilmoitus.setMaximumSize(omat.getPreferredSize());
+        ilmoitus.setFocusable(false);
         poistu.setMaximumSize(omat.getPreferredSize());
+        poistu.setFocusable(false);
         kirjaudu.setMinimumSize(omat.getPreferredSize());
         kirjaudu.setPreferredSize(omat.getPreferredSize());
         kirjaudu.setMaximumSize(omat.getPreferredSize());
+        kirjaudu.setFocusable(false);
         hae.setMinimumSize(omat.getPreferredSize());
         hae.setPreferredSize(omat.getPreferredSize());
         hae.setMaximumSize(omat.getPreferredSize());
         hae.setFocusable(false);
         
-        //paneli = new JPanel(new FlowLayout());
         sisus = new JPanel();
         sisus.setLayout(new BoxLayout(sisus, BoxLayout.X_AXIS));
         
@@ -95,31 +95,23 @@ public class MainWindow extends JFrame{
        
         nappisisus = new JPanel();
         nappisisus.setLayout(new BoxLayout(nappisisus, BoxLayout.Y_AXIS));
-        //nappisisus.setBackground(Color.cyan);
         
         nappisisus2 = new JPanel();
         nappisisus2.setLayout(new BoxLayout(nappisisus2, BoxLayout.Y_AXIS));
-        //nappisisus2.setBackground(Color.MAGENTA);
         nappisisus2.setBorder(BorderFactory.createRaisedBevelBorder());
         
         hakusisus = new JPanel();
         hakusisus.setLayout(new BoxLayout(hakusisus, BoxLayout.X_AXIS));
-        //hakusisus.setBackground(Color.red);
         hakusisus.setBorder(BorderFactory.createRaisedBevelBorder());
         
         listasisus = new JPanel();
         listasisus.setLayout(new BoxLayout(listasisus, BoxLayout.X_AXIS));
-        //listasisus.setBackground(Color.orange);
         
         kayttajasisus = new JPanel();
         kayttajasisus.setLayout(new BoxLayout(kayttajasisus, BoxLayout.X_AXIS));
-        //kayttajasisus.setBackground(Color.yellow);
-        //kayttajasisus.setBorder(BorderFactory.createRaisedBevelBorder());
         
         ohjesisus = new JPanel();
         ohjesisus.setLayout(new BoxLayout(ohjesisus, BoxLayout.X_AXIS));
-        //kayttajasisus.setBackground(Color.yellow);
-        //ohjesisus.setBorder(BorderFactory.createLoweredBevelBorder());
         
         ohje = new JLabel("Avaa ilmoitus klikaamalla sitä");
         
@@ -140,19 +132,15 @@ public class MainWindow extends JFrame{
         
         nimi = new JTextField(15);
         nimi.setMaximumSize(nimi.getPreferredSize());
-        //nimi.setText("Hakusana");
         
         sijainti = new JTextField(8);
         sijainti.setMaximumSize(nimi.getPreferredSize());
-        //sijainti.setText("Sijainti");
         
         hintamin = new JTextField(8);
         hintamin.setMaximumSize(nimi.getPreferredSize());
-        //hintamin.setText("Hinta: Min");
         
         hintamax = new JTextField(8);
         hintamax.setMaximumSize(nimi.getPreferredSize());
-        //hintamax.setText("Hinta: Max");
         
         huomautus = new JTextArea("Kirjaudu sisään \njättääksesi ilmoituksia");
         huomautus.setEditable(false);
@@ -161,11 +149,6 @@ public class MainWindow extends JFrame{
         huomautus.setMaximumSize(huomautus.getPreferredSize());
         
         String[] otsikot = {"Tuotteen nimi", "Sijainti", "Hinta"};
-        /*Object[][] data = {
-        		{"Auto", "Oulu", "1000.00"},
-        		{"Puhelin", "Kemi", "50.00"}
-        };*/
-        //Object[][] data = null;
         //haetaan ilmoitukset tietokannasta
         try {
 			List<Message> ilmoitukset = MessageDatabase.getInstance().getAllMessages();
@@ -176,7 +159,6 @@ public class MainWindow extends JFrame{
 				data[i][2] = ilmoitukset.get(i).getPrice();
 			}
 		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 			JOptionPane.showMessageDialog(itse, "Ilmoituksien hakeminen tietokannasta epäonnistui", "Virhe" , JOptionPane.ERROR_MESSAGE);
 		}
@@ -214,12 +196,6 @@ public class MainWindow extends JFrame{
         			kayttaja.setText(null);
         		} else {
         			KirjauduSisaan kirjaudu = new KirjauduSisaan((MainWindow) itse, 0 , "");
-        			//kirjaudu.setVisible(true);
-        			//kirjautuminen("Käyttäjä");
-        			/*ilmoitus.setEnabled(true);
-        			omat.setEnabled(true);
-        			kirjaudu.setText("Kirjaudu ulos");
-        			kayttaja.setText("Käyttäjä");*/
         		}
             }
         });
@@ -263,13 +239,11 @@ public class MainWindow extends JFrame{
     					data[i][2] = ilmoitukset.get(i).getPrice();
     				}
     			} catch (SQLException e2) {
-    				// TODO Auto-generated catch block
     				e2.printStackTrace();
     				JOptionPane.showMessageDialog(itse, "Ilmoituksien hakeminen tietokannasta epäonnistui", "Virhe" , JOptionPane.ERROR_MESSAGE);
     			}
     			
     			if (hakunimi.isBlank() && hakusijainti.isBlank() && min == 0 && max== 0) {
-    				JOptionPane.showMessageDialog(itse, "Hakuehdot ovat tyhjät","Huomautus" , JOptionPane.PLAIN_MESSAGE);
     				lista.setModel(new TableModel(otsikot, data));
     			} else if (data.length == 0) {
     				lista.setModel(new TableModel(otsikot, data));
@@ -277,7 +251,7 @@ public class MainWindow extends JFrame{
     				Object[][] data2 = CopyArray(data);
     				Object[][] data3;
     				if (!hakunimi.isBlank()) {
-    					data3 = new Object[data.length][data[1].length];
+    					data3 = new Object[data.length][data[0].length];
     					int k = 0;
     					for(int i = 0; i < data2.length; i++) {
     						if (((String) data2[i][0]).toLowerCase().contains(hakunimi)){
@@ -287,11 +261,10 @@ public class MainWindow extends JFrame{
     							k = k+1;
     						}
     					}
-    					System.out.println("Nimi");
     					data2 = CopyArray(data3);
     				}
     				if (!hakusijainti.isBlank()) {
-    					data3 = new Object[data.length][data[1].length];
+    					data3 = new Object[data.length][data[0].length];
     					int k = 0;
     					for(int i = 0; i < data2.length; i++) {
     						if (((String) data2[i][1]).toLowerCase().contains(hakusijainti)){
@@ -301,14 +274,14 @@ public class MainWindow extends JFrame{
     							k = k+1;
     						}
     					}
-    					System.out.println("Sijainti");
     					data2 = CopyArray(data3);
     				}
     				if (min > 0) {
-    					data3 = new Object[data.length][data[1].length];
+    					data3 = new Object[data.length][data[0].length];
     					int k = 0;
     					for(int i = 0; i < data2.length; i++) {
-    						if ((Double.parseDouble((String) data2[i][2])) >= min){
+    						Double haku1=  (Double) data2[i][2];
+    						if (haku1 >= min){
     							for (int j = 0; j < data2[0].length; j++){
     								data3[k][j] = data2[i][j];
     							}
@@ -318,10 +291,11 @@ public class MainWindow extends JFrame{
     					data2 = CopyArray(data3);
     				}
     				if (max > 0) {
-    					data3 = new Object[data.length][data[1].length];
+    					data3 = new Object[data.length][data[0].length];
     					int k = 0;
     					for(int i = 0; i < data2.length; i++) {
-    						if ((Double.parseDouble((String) data2[i][2])) <= max){
+    						Double haku2 =  (Double) data2[i][2];
+    						if (haku2 <= max){
     							for (int j = 0; j < data2[0].length; j++){
     								data3[k][j] = data2[i][j];
     							}
@@ -343,14 +317,14 @@ public class MainWindow extends JFrame{
             }
         });
         
-     // Ilmoitus nappi avaa jätä ilmoitus ikkunan
+     // Omat nappi avaa omat ilmoitukset ikkunan
         omat.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e){
         		OmatIlmoitukset jata = new OmatIlmoitukset(kayttaja.getText());
             }
         });
         
-        // Näyttää listasta valitun ilmoituksen omassa ikkunassaan
+        // Ilmoituksen klikkaaminen näyttää listasta valitun ilmoituksen omassa ikkunassaan
         lista.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
             	//  Tämä if lauseke varmistaa että ikkuna avautuu vain kerran, kun se valitaan hiirellä
@@ -359,12 +333,24 @@ public class MainWindow extends JFrame{
             		int column = 0;
             		int row = lista.getSelectedRow();
             		String tuote = lista.getModel().getValueAt(row, column).toString();
-            		if (kayttaja.getText() != null && !kayttaja.getText().isBlank()) {
-            			AnswerMessage vastaa = new AnswerMessage(tuote, kayttaja.getText());
-            			vastaa.setVisible(true);
-            		} else {
-            			ShowMessage nayta = new ShowMessage((MainWindow) itse, tuote);
-            			nayta.setVisible(true);
+            		Message valittu = null;
+            		try {
+						valittu = MessageDatabase.getInstance().getMessage(tuote);
+					} catch (SQLException e) {
+						JOptionPane.showMessageDialog(itse, "Ilmoituksen tietojen hakemisessa tapahtui virhe", "Virhe" , JOptionPane.ERROR_MESSAGE);
+						e.printStackTrace();
+					}
+            		if (valittu != null) {
+            			if (kayttaja.getText() != null && !kayttaja.getText().isBlank()) {
+            				AnswerMessage vastaa = new AnswerMessage(tuote, kayttaja.getText());
+            				vastaa.setVisible(true);
+            			} else {
+            				ShowMessage nayta = new ShowMessage((MainWindow) itse, tuote);
+            				nayta.setVisible(true);
+            			}
+            		}else {
+            			JOptionPane.showMessageDialog(itse, "Valittua ilmoitusta ei löytynyt. Se on saatettu poistaa.", "Virhe" , JOptionPane.WARNING_MESSAGE);
+            			hae.doClick();
             		}
             	}
             	lista.clearSelection();
@@ -418,7 +404,6 @@ public class MainWindow extends JFrame{
         kayttajasisus.add(Box.createRigidArea(new Dimension(20,1)));
         kayttajasisus.add(kirjaudu);
         kayttajasisus.add(Box.createRigidArea(new Dimension(14,59)));
-        //kayttajasisus.add(Box.createRigidArea(new Dimension(10,55)));
         
         hakusisus.add(Box.createRigidArea(new Dimension(10,1)));
         hakusisus.add(nimiteksti);
@@ -459,11 +444,9 @@ public class MainWindow extends JFrame{
         poistu.setAlignmentX(CENTER_ALIGNMENT);
         nappisisus.add(Box.createRigidArea(new Dimension(1,10)));
         
-        //sisus2.add(Box.createVerticalGlue());
         sisus2.add(Box.createRigidArea(new Dimension(1,10)));
         sisus2.add(kayttajasisus);
         sisus2.add(Box.createRigidArea(new Dimension(1,10)));
-        //sisus2.add(Box.createVerticalGlue());
         sisus2.add(hakusisus);
         sisus2.add(Box.createRigidArea(new Dimension(1,10)));
         sisus2.add(Box.createVerticalGlue());
@@ -471,7 +454,6 @@ public class MainWindow extends JFrame{
         sisus2.add(Box.createRigidArea(new Dimension(1,10)));
         sisus2.add(listasisus);
         sisus2.add(Box.createRigidArea(new Dimension(1,10)));
-        //sisus2.add(Box.createVerticalGlue());
         
         sisus.add(Box.createRigidArea(new Dimension(10,1)));
         sisus.add(nappisisus);
@@ -482,15 +464,13 @@ public class MainWindow extends JFrame{
 
         this.getContentPane().add(sisus);
         
-        //lis�t��n ikkunaan viel� toiminnallisuus, joka sulkee ohjelman
-        //k�ytet��n t�ss�kin sis�luokkaa.
+        //Asetetaan raksin toiminnallisuus
         this.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
             	System.out.println("Shutting down Program...");
                 try {
 					MessageDatabase.getInstance().closeDB();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
                 System.out.println("Program has been shutdown.");
@@ -500,6 +480,7 @@ public class MainWindow extends JFrame{
         
     }
     
+    // Taulukon kopiointi metodi
     private Object[][] CopyArray(Object[][] taulu){
     	int korkeus = 0;
     	int leveys = 0;
@@ -524,6 +505,7 @@ public class MainWindow extends JFrame{
     	return taulu2;
     }
     
+    // Kirjautuneen käyttäjän asetus metodi
     public void kirjautuminen(String nimi) {
     	ilmoitus.setEnabled(true);
 		omat.setEnabled(true);
@@ -531,13 +513,10 @@ public class MainWindow extends JFrame{
 		kayttaja.setText(nimi);
     }
     
+    //Metodi joka hakee kirjautuneen käyttäjän nimen
     public String kayttajanimi() {
 		String username = kayttaja.getText();
 		return username;
     }
     
-     /*public static void main(String[] args) {
-    	 MainWindow sovellus = new MainWindow();
-         sovellus.setVisible(true);  
-    }*/
 }   

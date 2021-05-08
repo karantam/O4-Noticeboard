@@ -10,7 +10,7 @@ public class Message {
     private double price;
     private String message;
 
-    // Constructor for the ChatMessage object
+    // Constructor for the Message object
     public Message( String userpar,String namepar, String locationpar, double pricepar, String messagepar) {
         this.user = userpar;
         this.name = namepar;
@@ -20,7 +20,7 @@ public class Message {
         this.message = messagepar;
     }
 
-    // Get methods for variables contained in ChatMessage object
+    // Get methods for variables contained in Message object
     public String getUser() {
         return this.user;
     }

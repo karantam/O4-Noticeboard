@@ -6,7 +6,7 @@ public class Answer {
     private String answertext;
     private String contact;
 
-    // Constructor for the ChatMessage object
+    // Constructor for the Answer object
     public Answer( String messagenamepar,String userpar, String answertextpar, String contactpar) {
         this.messagename = messagenamepar;
         this.user = userpar;
@@ -14,7 +14,7 @@ public class Answer {
         this.contact = contactpar;
     }
 
-    // Get methods for variables contained in ChatMessage object
+    // Get methods for variables contained in Answer object
     public String getMessageName() {
         return this.messagename;
     }

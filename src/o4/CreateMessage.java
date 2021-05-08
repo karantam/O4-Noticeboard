@@ -24,7 +24,7 @@ public class CreateMessage extends JFrame{
     private JPanel kuvaussisus;
     private JScrollPane kuvausalue;
     private JPanel nappisisus;
-    private JFrame itse; //Talletuspaikka ikkunan viittaukselle itseens�
+    private JFrame itse; //Talletuspaikka ikkunan viittaukselle itseensä
     
     
     public CreateMessage(String lahettaja) {
@@ -61,7 +61,6 @@ public class CreateMessage extends JFrame{
         kuvaus.setMinimumSize(nimi.getPreferredSize());
         kuvaus.setMaximumSize(nimi.getPreferredSize());
         kuvausrivi = new JTextArea (6,30);
-        //kuvausrivi.setMaximumSize(kuvausrivi.getPreferredSize());
         kuvausrivi.setLineWrap(true);
         kuvausalue = new JScrollPane(kuvausrivi);
         kuvausalue.setMinimumSize(kuvausalue.getPreferredSize());
@@ -71,7 +70,6 @@ public class CreateMessage extends JFrame{
         peruuta = new JButton ("Peruuta");
         laheta.setPreferredSize(peruuta.getPreferredSize());
         
-        //paneli = new JPanel(new FlowLayout());
         sisus = new JPanel();
         BoxLayout boxlayout = new BoxLayout(sisus, BoxLayout.Y_AXIS);
         sisus.setLayout(boxlayout);
@@ -84,33 +82,26 @@ public class CreateMessage extends JFrame{
         nimisisus = new JPanel();
         BoxLayout nimibox = new BoxLayout(nimisisus, BoxLayout.X_AXIS);
         nimisisus.setLayout(nimibox);
-        //nimisisus.setBackground(Color.blue);
         
         sijaintisisus = new JPanel();
         BoxLayout sijaintibox = new BoxLayout(sijaintisisus, BoxLayout.X_AXIS);
         sijaintisisus.setLayout(sijaintibox);
-        //sijaintisisus.setBackground(Color.red);
         
         hintasisus = new JPanel();
         BoxLayout hintabox = new BoxLayout(hintasisus, BoxLayout.X_AXIS);
         hintasisus.setLayout(hintabox);
-        //hintasisus.setBackground(Color.orange);
         
         kuvaussisus = new JPanel();
         BoxLayout kuvausbox = new BoxLayout(kuvaussisus, BoxLayout.X_AXIS);
         kuvaussisus.setLayout(kuvausbox);
-        //kuvaussisus.setBackground(Color.yellow);
         
         nappisisus = new JPanel();
         BoxLayout nappibox = new BoxLayout(nappisisus, BoxLayout.X_AXIS);
         nappisisus.setLayout(nappibox);
-        //nappisisus.setBackground(Color.cyan);
         
-        //Lis�t��n napille toiminnallisuus nimett�m�n sis�luokan avulla.
-        //Toiminnallisuus on sama kuin EchoListener-luokassa.
+        //Asetetaan nappien toiminnallisuudet
         peruuta.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-            	//System.exit(0);
             	dispose();
             }
         });
@@ -155,30 +146,24 @@ public class CreateMessage extends JFrame{
         //koostetaan panelit
         nimisisus.add(Box.createRigidArea(new Dimension(10,1)));
         nimisisus.add(nimi);
-        //nimisisus.add(Box.createHorizontalGlue());
-        //nimirivi.setAlignmentX(Component.RIGHT_ALIGNMENT);
         nimisisus.add(nimirivi);
         nimisisus.add(Box.createRigidArea(new Dimension(10,1)));
         
         sijaintisisus.add(Box.createRigidArea(new Dimension(10,1)));
         sijaintisisus.add(sijainti);
-        //sijaintisisus.add(Box.createHorizontalGlue());
         sijaintisisus.add(sijaintirivi);
         sijaintisisus.add(Box.createRigidArea(new Dimension(10,1)));
         
         hintasisus.add(Box.createRigidArea(new Dimension(10,1)));
         hintasisus.add(hinta);
-        //hintasisus.add(Box.createHorizontalGlue());
         hintasisus.add(hintarivi);
         hintasisus.add(Box.createRigidArea(new Dimension(10,1)));
         
         kuvaussisus.add(Box.createRigidArea(new Dimension(10,1)));
         kuvaussisus.add(kuvaus);
-        //kuvaussisus.add(Box.createHorizontalGlue());
         kuvaussisus.add(kuvausalue);
         kuvaussisus.add(Box.createRigidArea(new Dimension(10,1)));
         
-        //nappisisus.add(Box.createHorizontalStrut( 20 ));
         nappisisus.add(Box.createRigidArea(new Dimension(20,40)));
         nappisisus.add(laheta);
         nappisisus.add(Box.createHorizontalGlue());
@@ -188,7 +173,6 @@ public class CreateMessage extends JFrame{
         //koostetaan pääpaneeli
         sisus2.add(Box.createVerticalGlue());
         sisus2.add(nimisisus);
-        //nimisisus.setAlignmentX_ALIGNMENT);
         sisus2.add(Box.createVerticalGlue());
         sisus2.add(sijaintisisus);
         sisus2.add(Box.createVerticalGlue());
@@ -206,19 +190,12 @@ public class CreateMessage extends JFrame{
 
         this.getContentPane().add(sisus);
         
-        //lis�t��n ikkunaan viel� toiminnallisuus, joka sulkee ohjelman
-        //k�ytet��n t�ss�kin sis�luokkaa.
+        //Aseteaan raksin toiminnallisuus
         this.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
-                //System.exit(0);
                 dispose();
             }
         });
         
     }
-    
-     /*public static void main(String[] args) {
-    	 CreateMessage sovellus = new CreateMessage();
-        sovellus.setVisible(true);  
-    }*/
 }
