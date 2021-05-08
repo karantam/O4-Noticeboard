@@ -180,7 +180,7 @@ public class AnswerMessage extends JFrame{
             public void actionPerformed(ActionEvent e){
             	String vastausteksti = vastausrivi.getText();
             	String yhteys = yhteysrivi.getText();
-            	if (vastausteksti.length() > 0 && yhteys.length() > 0) {
+            	if (!vastausteksti.isBlank() && vastausteksti.length() > 3 && !yhteys.isBlank() && yhteys.length() > 3) {
             		Answer vastaus = new Answer(tuote, kayttaja, vastausteksti, yhteys);
             		boolean value = false;
         			try {
