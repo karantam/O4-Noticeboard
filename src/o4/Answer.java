@@ -36,7 +36,7 @@ public class Answer {
         return new Answer(messagename, user, answertext, contact);
     }
     
-    // Palauttaa vastauksen j‰tt‰j‰n nimen kun olio luetaan
+    // Palauttaa vastauksen j√§tt√§j√§n nimen kun olio luetaan
     public String toString() {
     	return user;
     	}

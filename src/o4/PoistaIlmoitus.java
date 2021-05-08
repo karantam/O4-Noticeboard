@@ -21,12 +21,12 @@ import java.awt.FlowLayout;
 
 public class PoistaIlmoitus implements ActionListener {
 	
-	Message ilmoitus;		//K‰sitelt‰v‰ ilmoitus
+	Message ilmoitus;		//K√§sitelt√§v√§ ilmoitus
 	
 	//Luodaan komponentit
 	JLabel label_1;
 	JLabel label_2;
-	JButton button_1 = new JButton("Kyll‰");
+	JButton button_1 = new JButton("Kyll√§");
 	JButton button_2 = new JButton("Ei");
 	JFrame frame;
 	
@@ -70,7 +70,7 @@ public class PoistaIlmoitus implements ActionListener {
 		panel_2.add(panel_2_sub);
 		
 		
-		//P‰‰paneeli
+		//P√§√§paneeli
 		JPanel mainPanel = new JPanel();
 		BoxLayout boxlayout_mainPanel = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
 		mainPanel.setLayout(boxlayout_mainPanel);
@@ -82,7 +82,7 @@ public class PoistaIlmoitus implements ActionListener {
 		
 
 		
-		//Luodaan freimi ja lis‰t‰‰n siihen paneeli
+		//Luodaan freimi ja lis√§t√§√§n siihen paneeli
 		frame = new JFrame("Poista ilmoitus");
 		frame.setSize(300, 200);
 		frame.setMinimumSize(new Dimension(285, 175));
@@ -111,7 +111,7 @@ public class PoistaIlmoitus implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == button_1) {
-			System.out.println("Poistetaan ilmoitus nimelt‰‰n " + ilmoitus);	//K‰yd‰‰n sorkkimassa kayttajan ilmoituslistaa
+			System.out.println("Poistetaan ilmoitus nimelt√§√§n " + ilmoitus);	//K√§yd√§√§n sorkkimassa kayttajan ilmoituslistaa
 			boolean value = false;
 			try {
 				value = MessageDatabase.getInstance().deleteMessage(ilmoitus);
@@ -124,7 +124,7 @@ public class PoistaIlmoitus implements ActionListener {
 				frame.dispose();
 				new OmatIlmoitukset(ilmoitus.getUser());
 			} else {
-				JOptionPane.showMessageDialog(frame, "Ilmoituksen poistaminen ep‰onnistui", "Virhe" , JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "Ilmoituksen poistaminen ep√§onnistui", "Virhe" , JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		if(e.getSource() == button_2) {

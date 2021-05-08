@@ -65,9 +65,9 @@ public class OmatIlmoitukset implements ItemListener{
 	 
 	 label_21("Vastaukset:") 	<--->	box_2
 	 
-	 label_22("Vastaus:")		<--->	textArea_2("j‰tetty vastaus")
+	 label_22("Vastaus:")		<--->	textArea_2("j√§tetty vastaus")
 	 
-	 label_23("Yhteystieto")	<--->	label_24("j‰tetty yhteystieto")
+	 label_23("Yhteystieto")	<--->	label_24("j√§tetty yhteystieto")
 	 
 	 ________________________________________________________________
 	 
@@ -80,7 +80,7 @@ public class OmatIlmoitukset implements ItemListener{
 	 */
 	
 	
-	//M‰‰ritell‰‰n muuttuvat elementit
+	//M√§√§ritell√§√§n muuttuvat elementit
 	//luodaan muuttumattomat elementit
 	
 	//panel_1
@@ -226,7 +226,7 @@ public class OmatIlmoitukset implements ItemListener{
 		int mar_x_2 = 5;
 		
 		//panel_1
-		//tehd‰‰n tyylittelyt ja list‰‰n elementit paneeliin 1
+		//tehd√§√§n tyylittelyt ja list√§√§n elementit paneeliin 1
 		
 		
 		//Minimit ja maksimit
@@ -300,8 +300,8 @@ public class OmatIlmoitukset implements ItemListener{
 		
 		
 		//panel_2
-		//Tehd‰‰n tyylittely keskipaneeliin
-		//Luodaan panel_2 ja lis‰t‰‰n siihen elementit
+		//Tehd√§√§n tyylittely keskipaneeliin
+		//Luodaan panel_2 ja lis√§t√§√§n siihen elementit
 		
 		//Minimit ja maksimit
 		label_21.setMinimumSize(new Dimension(x, y));
@@ -393,8 +393,8 @@ public class OmatIlmoitukset implements ItemListener{
 		panel_3.add(panel_3_sub);
 		
 		//mainPanel
-		//Luodaan ja tyylitell‰‰n p‰‰paneeli
-		//lis‰t‰‰n alapaneelit 1, 2, ja 3 p‰‰paneeliin
+		//Luodaan ja tyylitell√§√§n p√§√§paneeli
+		//lis√§t√§√§n alapaneelit 1, 2, ja 3 p√§√§paneeliin
 		
 		JPanel mainPanel = new JPanel();
 		BoxLayout boxlayout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
@@ -436,12 +436,12 @@ public class OmatIlmoitukset implements ItemListener{
 				
 	   			Message valittuIlmoitus = (Message) box_1.getSelectedItem();
 	   			
-	   			//P‰ivitet‰‰n panel_1
+	   			//P√§ivitet√§√§n panel_1
 	   			label_15.setText(valittuIlmoitus.getLocation());
 	   			label_16.setText(String.valueOf(valittuIlmoitus.getPrice()));
 	   			textArea_1.setText(valittuIlmoitus.getMessage());
 	   			
-	   			//P‰ivitet‰‰n panel_2 kokonaisuudessaan
+	   			//P√§ivitet√§√§n panel_2 kokonaisuudessaan
 	   			List<Answer> vastaukset = null;
 	   			try {
 	   				vastaukset = MessageDatabase.getInstance().getAnswers(valittuIlmoitus.getName());
@@ -468,15 +468,15 @@ public class OmatIlmoitukset implements ItemListener{
 	   		}
 	   		if((JComboBox)e.getSource() == box_2) {
 	   			//Reagointi: Box_2
-	   			//p‰ivitet‰‰n pelk‰st‰‰n panel_2 (box_2 ei p‰ivity t‰ss‰)
+	   			//p√§ivitet√§√§n pelk√§st√§√§n panel_2 (box_2 ei p√§ivity t√§ss√§)
 	   			Answer valittuVastaus = (Answer) box_2.getSelectedItem();
 	   			textArea_2.setText(valittuVastaus.getAnswerText()); 
 	   			label_24.setText(valittuVastaus.getContact());
 	   		}
 	    }
-		// asetetaan model comboboxin p‰ivitt‰mist‰ varten
+		// asetetaan model comboboxin p√§ivitt√§mist√§ varten
 		// https://moodle.oulu.fi/pluginfile.php/572575/mod_resource/content/4/swing/jTable/
-		// oleellista on, ett‰ Listener reagoi comboboxin valitun itemin muunnokseen
+		// oleellista on, ett√§ Listener reagoi comboboxin valitun itemin muunnokseen
 		// https://stackoverflow.com/questions/58939/jcombobox-selection-change-listener
 	}       
 	
@@ -494,11 +494,11 @@ class napit implements ActionListener{
 	
 	
 	public void actionPerformed(ActionEvent e) {
-		//T‰nne tullaan lis‰‰m‰‰n toiminnallisuuttaa: ilmoitus.muokkaa() ja 
+		//T√§nne tullaan lis√§√§m√§√§n toiminnallisuuttaa: ilmoitus.muokkaa() ja 
 		//ilmoitus.muokkaa() ja ilmoitus.poista
 		
 		if((JButton)e.getSource() == oi.button_1) {
-			//Siirryt‰‰n muokkaamaan valittua ilmoitusta
+			//Siirryt√§√§n muokkaamaan valittua ilmoitusta
 			Message valittuIlmoitus = (Message) oi.box_1.getSelectedItem();
 			
 			//System.out.println(valittuIlmoitus);
@@ -506,7 +506,7 @@ class napit implements ActionListener{
 			//System.out.println("Muokkaa");
 			
 			// new EditMessage(valittuIlmoitus);
-			// T‰h‰n siis ...
+			// T√§h√§n siis ...
 			EditMessage edit = new EditMessage(valittuIlmoitus);
             edit.setVisible(true);
 		}

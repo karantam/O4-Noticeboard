@@ -26,20 +26,20 @@ public class KirjauduSisaan implements ActionListener {
 	String tuote;
 
 	//panel_1
-	JLabel label_1 = new JLabel("K‰ytt‰j‰nimi:      ");
+	JLabel label_1 = new JLabel("K√§ytt√§j√§nimi:      ");
 	JLabel label_2 = new JLabel("Salasana:           ");
 	JTextField textfield_1 = new JTextField(20);
 	JPasswordField textfield_2 = new JPasswordField(20);
 	
 	//panel_2
-	JLabel label_3 = new JLabel("Eikˆ sinulla ole tili‰?     ");
-	JButton button_1 = new JButton("Rekisterˆidy");
+	JLabel label_3 = new JLabel("Eik√∂ sinulla ole tili√§?     ");
+	JButton button_1 = new JButton("Rekister√∂idy");
 	
 	//panel_3
-	JButton button_2 = new JButton("Kirjaudu sis‰‰n");
+	JButton button_2 = new JButton("Kirjaudu sis√§√§n");
 	JButton button_3 = new JButton("Peruuta");
 	
-	JFrame frame = new JFrame("Kirjaudu sis‰‰n");
+	JFrame frame = new JFrame("Kirjaudu sis√§√§n");
 	
 	public KirjauduSisaan( MainWindow  paa, int palataan, String tuote) {
 		
@@ -172,7 +172,7 @@ public class KirjauduSisaan implements ActionListener {
 		
 		
 		//frame
-		//JFrame frame = new JFrame("Kirjaudu sis‰‰n");
+		//JFrame frame = new JFrame("Kirjaudu sis√§√§n");
 		frame.setSize(400, 280);
 		frame.setMinimumSize(new Dimension(350, 240));
 		frame.setLocationRelativeTo(null);
@@ -202,12 +202,12 @@ public class KirjauduSisaan implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == button_1) {
-			System.out.println("Rekisterˆidy");
+			System.out.println("Rekister√∂idy");
 			new Rekisteroityminen(paa, palataan, tuote);
 			frame.dispose();
 		}
 		if(e.getSource() == button_2) {
-			System.out.println("Kirjaudu sis‰‰n");
+			System.out.println("Kirjaudu sis√§√§n");
 			String userName = textfield_1.getText();
 			String password = textfield_2.getText(); //JPassword.getText() saattaa kusta joissain versioissa	
 			System.out.println(userName);
@@ -216,7 +216,7 @@ public class KirjauduSisaan implements ActionListener {
 			try {
 				value = MessageDatabase.getInstance().checkUser(userName, password);
 			} catch (SQLException e1) {
-				JOptionPane.showMessageDialog(frame, "K‰ytt‰j‰nimen ja salasanan tarkistuksessa tapahtui virhe", "Virhe" , JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "K√§ytt√§j√§nimen ja salasanan tarkistuksessa tapahtui virhe", "Virhe" , JOptionPane.ERROR_MESSAGE);
 				e1.printStackTrace();
 			}
 			if(value) {
@@ -227,13 +227,13 @@ public class KirjauduSisaan implements ActionListener {
 					answer.setVisible(true);
 				}
 			} else {
-				JOptionPane.showMessageDialog(frame, "K‰ytt‰j‰nimi tai salasana ei kelpaa", "Virhe" , JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "K√§ytt√§j√§nimi tai salasana ei kelpaa", "Virhe" , JOptionPane.WARNING_MESSAGE);
 			}
 			/*if(palataan == "MainWindow") {
 				// return userName;
 				// new MainWindow(userName);
-				//tai uploadataan p‰‰ikkuna
-				System.out.println("Palataan aloitusn‰kym‰‰n");
+				//tai uploadataan p√§√§ikkuna
+				System.out.println("Palataan aloitusn√§kym√§√§n");
 			}
 			if(palataan == "AnswerMessage") {
 				// new AnswerMessage();

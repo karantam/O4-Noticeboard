@@ -27,8 +27,8 @@ public class Rekisteroityminen implements ActionListener {
 	String tuote;
 	
 	//panel_1
-	JLabel label_1 = new JLabel("Käyttäjänimi:               ");
-	JLabel label_2 = new JLabel("Sähköposti:                 ");
+	JLabel label_1 = new JLabel("KÃ¤yttÃ¤jÃ¤nimi:               ");
+	JLabel label_2 = new JLabel("SÃ¤hkÃ¶posti:                 ");
 	JLabel label_3 = new JLabel("Salasana:                     ");
 	JLabel label_4 = new JLabel("Vahvista salasana:    ");
 	
@@ -41,13 +41,13 @@ public class Rekisteroityminen implements ActionListener {
 	
 	
 	//panel_2
-	JButton button_1 = new JButton("Rekisteröidy");
+	JButton button_1 = new JButton("RekisterÃ¶idy");
 	JButton button_2 = new JButton("Peruuta");
 		
 	
 	
 	//frame
-	JFrame frame = new JFrame("Rekisteröityminen");
+	JFrame frame = new JFrame("RekisterÃ¶ityminen");
 			
 	public Rekisteroityminen(MainWindow paa, int palataan, String tuote) {
 		
@@ -152,7 +152,7 @@ public class Rekisteroityminen implements ActionListener {
 		panel_2.add(panel_2_sub);
 		
 		
-		//sisus.add(Box.createVerticalGlue()); TÄRKEÄÄ!!!
+		//sisus.add(Box.createVerticalGlue()); TÃ„RKEÃ„Ã„!!!
 		//nappi.setAlignmentX(CENTER_ALIGNMENT)
 
 		
@@ -209,14 +209,14 @@ public class Rekisteroityminen implements ActionListener {
 			String passwordAgain = textfield_4.getText();
 			
 			if(informationsAreAllowed(userName, email, password, passwordAgain)) {
-				System.out.println("Rekisteröidy");
-				System.out.println("Luodaan uusi käyttäjä databaseen");
+				System.out.println("RekisterÃ¶idy");
+				System.out.println("Luodaan uusi kÃ¤yttÃ¤jÃ¤ databaseen");
 				User kayttaja = new User(userName, password, email);
 				boolean value = false;
 				try {
 					value = MessageDatabase.getInstance().setUser(kayttaja);
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(frame, "Käyttäjänimen ja salasanan rekisteröinnissä tapahtui virhe", "Virhe" , JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "KÃ¤yttÃ¤jÃ¤nimen ja salasanan rekisterÃ¶innissÃ¤ tapahtui virhe", "Virhe" , JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
 				if(value) {
@@ -227,7 +227,7 @@ public class Rekisteroityminen implements ActionListener {
 						answer.setVisible(true);
 					}
 				} else {
-					JOptionPane.showMessageDialog(frame, "Käyttäjänimi tai salasana ei kelpaa", "Virhe" , JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "KÃ¤yttÃ¤jÃ¤nimi tai salasana ei kelpaa", "Virhe" , JOptionPane.WARNING_MESSAGE);
 					textfield_1.setText("");
 					textfield_3.setText("");
 					textfield_4.setText("");
@@ -237,8 +237,8 @@ public class Rekisteroityminen implements ActionListener {
 					System.out.println("Palataam AnswerMessage - ikkunaan");
 				}
 				if(palataan == "MainWindow") {
-					//Palataan aloitusnäkymään tai päivitetään se
-					System.out.println("Palataan aloitusnäkymään");
+					//Palataan aloitusnÃ¤kymÃ¤Ã¤n tai pÃ¤ivitetÃ¤Ã¤n se
+					System.out.println("Palataan aloitusnÃ¤kymÃ¤Ã¤n");
 				}*/
 			//else {return;}
 			}
@@ -252,9 +252,9 @@ public class Rekisteroityminen implements ActionListener {
 	//Apufunktio_1
 	public String checkUserName(String userName) {
 		String problem = null;
-		//3-20 merkkiä
+		//3-20 merkkiÃ¤
 		if(userName.isBlank() || userName.length() > 20 || userName.length() < 3) 
-			{return problem = "Käyttäjänimen on oltava vähintään 3 merkkiä ja enintään 20 merkkiä pitkä.";}
+			{return problem = "KÃ¤yttÃ¤jÃ¤nimen on oltava vÃ¤hintÃ¤Ã¤n 3 merkkiÃ¤ ja enintÃ¤Ã¤n 20 merkkiÃ¤ pitkÃ¤.";}
 		//Kaikki ok
 		else{return problem;}
 	}
@@ -262,7 +262,7 @@ public class Rekisteroityminen implements ActionListener {
 	//Apufunktio_2
 	public String checkEmail(String email) {
 		String problem = null;
-		//Ei sisällä at-merkkiä
+		//Ei sisÃ¤llÃ¤ at-merkkiÃ¤
 		char someChar = '@';
 		int count = 0;
 		for (int i = 0; i < email.length(); i++) {
@@ -271,7 +271,7 @@ public class Rekisteroityminen implements ActionListener {
 		    }
 		}
 		if(count != 1)
-			{return problem = "Sähköposti ei ole kelvollinen";}
+			{return problem = "SÃ¤hkÃ¶posti ei ole kelvollinen";}
 		//Kaikki ok
 		else {return problem;}
 	}
@@ -280,9 +280,9 @@ public class Rekisteroityminen implements ActionListener {
 	//Apufunktio_3
 	public String checkPassword(String password) {
 		String problem = null;
-		//6-18 merkkiä
+		//6-18 merkkiÃ¤
 		if(password.length() > 18 || password.length() < 6) 
-			{return problem = "Salasanan on oltava vähintään 6 merkkiä ja enintään 18 merkkiä pitkä.";}
+			{return problem = "Salasanan on oltava vÃ¤hintÃ¤Ã¤n 6 merkkiÃ¤ ja enintÃ¤Ã¤n 18 merkkiÃ¤ pitkÃ¤.";}
 		//Kaikki ok
 		else {return problem;}
 	}
@@ -293,7 +293,7 @@ public class Rekisteroityminen implements ActionListener {
 		String problem = null;
 		//Salasanat ovat erit
 		if(!password.equals(passwordAgain))
-			{return problem = "Salasanat eivät täsmää.";}
+			{return problem = "Salasanat eivÃ¤t tÃ¤smÃ¤Ã¤.";}
 		//Kaikki ok
 		else {return problem;}
 	}

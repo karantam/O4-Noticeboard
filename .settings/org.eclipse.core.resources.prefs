@@ -1,6 +1,16 @@
 eclipse.preferences.version=1
+encoding//src/o4/Answer.java=UTF-8
 encoding//src/o4/AnswerMessage.java=UTF-8
 encoding//src/o4/CreateMessage.java=UTF-8
 encoding//src/o4/EditMessage.java=UTF-8
+encoding//src/o4/KirjauduSisaan.java=UTF-8
 encoding//src/o4/MainWindow.java=UTF-8
+encoding//src/o4/Message.java=UTF-8
+encoding//src/o4/MessageDatabase.java=UTF-8
+encoding//src/o4/OmatIlmoitukset.java=UTF-8
+encoding//src/o4/PoistaIlmoitus.java=UTF-8
+encoding//src/o4/ProgramMain.java=UTF-8
+encoding//src/o4/Rekisteroityminen.java=UTF-8
 encoding//src/o4/ShowMessage.java=UTF-8
+encoding//src/o4/TableModel.java=UTF-8
+encoding//src/o4/User.java=UTF-8
