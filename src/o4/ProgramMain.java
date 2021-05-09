@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class ProgramMain {
     public static void main(String[] args) throws Exception {
         System.out.println("Launching Program...");
-        System.out.println("Initializing databse ...");
+        System.out.println("Initializing database ...");
         //Opening a database connection
         MessageDatabase.getInstance().open();
         System.out.println("Starting Program!");

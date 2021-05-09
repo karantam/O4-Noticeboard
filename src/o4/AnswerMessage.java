@@ -178,7 +178,7 @@ public class AnswerMessage extends JFrame{
         			try {
 						value = MessageDatabase.getInstance().setAnswer(vastaus);
 						if (value) {
-	            			JOptionPane.showMessageDialog(itse, "Vastaus on lähettetty onnistuneesti.","Viesti" , JOptionPane.PLAIN_MESSAGE);
+	            			JOptionPane.showMessageDialog(itse, "Vastaus lähettetty onnistuneesti.","Viesti" , JOptionPane.PLAIN_MESSAGE);
 	            			dispose();
 	            		} else {
 	            			JOptionPane.showMessageDialog(itse, "Vastauksen lähetys epäonnistui", "Virhe" , JOptionPane.ERROR_MESSAGE);

@@ -127,7 +127,7 @@ public class CreateMessage extends JFrame{
             			if (value) {
             				value2 = MessageDatabase.getInstance().setMessage(ilmoitus);
             				if (value2) {
-                				JOptionPane.showMessageDialog(itse, "Ilmoitus on lähettetty onnistuneesti.","Viesti" , JOptionPane.PLAIN_MESSAGE);
+                				JOptionPane.showMessageDialog(itse, "Ilmoitus lähettetty onnistuneesti.","Viesti" , JOptionPane.PLAIN_MESSAGE);
                 				dispose();
                 			} else {
                 				JOptionPane.showMessageDialog(itse, "Ilmoituksen lähetys epäonnistui", "Virhe" , JOptionPane.ERROR_MESSAGE);
